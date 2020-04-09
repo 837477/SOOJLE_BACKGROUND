@@ -28,7 +28,7 @@ def SJ_visitor_of_time():
 	db_client = MongoClient('mongodb://%s:%s@%s' %(MONGODB_ID, MONGODB_PW, MONGODB_HOST))
 	db = db_client["soojle"]
 
-	time = datetime.now() - timedelta(minutes = 59)
+	time = datetime.now() - timedelta(hours = 1)
 
 	visitor_cnt = find_today_time_visitor(db, time)
 
@@ -36,7 +36,7 @@ def SJ_visitor_of_time():
 	if datetime.now().hour == 0:
 		hour_visitor_obj['time'] = 24
 	else:	
-		hour_visitor_obj['time'] = datetime.now().hour
+		hour_visitor_obj['time'] = time.hour
 	
 	hour_visitor_obj['visitor'] = visitor_cnt
 
