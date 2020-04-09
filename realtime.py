@@ -76,7 +76,7 @@ def real_time_keywords(search_input):
 	return result
 
 #실시간 검색어 캐싱 함수
-def real_time_insert():
+def SJ_realtime_insert():
 	db_client = MongoClient('mongodb://%s:%s@%s' %(MONGODB_ID, MONGODB_PW, MONGODB_HOST))
 	db = db_client["soojle"]
 
@@ -132,15 +132,15 @@ def real_time_insert():
 
 if __name__ == '__main__':
 	FILE = open('/home/iml/log/background.log', 'a')
+	#FILE = open('background.log', 'a')
 	
 	try:
-    	real_time_insert()
-		log_data = datetime.now() + "실시간 검색어 캐싱 성공 :)"
+		SJ_realtime_insert()
+		log_data = str(datetime.now()) + " ::: 실시간 검색어 캐싱 성공 :)  \n"
     
-	except:
-		log_data = datetime.now() + "실시간 검색어 캐싱 실패 :("
+	except Exception as ex:
+		log_data = str(datetime.now()) + " ::: 실시간 검색어 캐싱 실패 :(  \n" + str(ex) + "\n"
 
 	FILE.write(log_data)
 
 	FILE.close()
-    

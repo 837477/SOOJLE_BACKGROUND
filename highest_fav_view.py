@@ -41,13 +41,14 @@ def update_posts_highest():
 
 if __name__ == '__main__':
 	FILE = open('/home/iml/log/background.log', 'a')
+	#FILE = open('background.log', 'a')
 	
 	try:
-    	update_posts_highest()
-		log_data = datetime.now() + "Highest post 캐싱 성공 :)"
+		update_posts_highest()
+		log_data = str(datetime.now()) + " ::: Highest post 캐싱 성공 :)  \n"
     
-	except:
-		log_data = datetime.now() + "Highest post 캐싱 실패 :("
+	except Exception as ex:
+		log_data = str(datetime.now()) + " ::: Highest post 캐싱 실패 :(  \n" + str(ex) + "\n"
 
 	FILE.write(log_data)
 

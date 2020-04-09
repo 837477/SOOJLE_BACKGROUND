@@ -231,15 +231,15 @@ def user_log_backup(db, USER):
 
 if __name__ == '__main__':
 	FILE = open('/home/iml/log/background.log', 'a')
+	#FILE = open('background.log', 'a')
 	
 	try:
-    	SJ_interest_measurement_run()
-		log_data = datetime.now() + "관심도 측정 성공 :)"
+		SJ_interest_measurement_run()
+		log_data = str(datetime.now()) + " ::: 관심도 측정 성공 :)  \n"
     
-	except:
-		log_data = datetime.now() + "관심도 측정 실패 :("
+	except Exception as ex:
+		log_data = str(datetime.now()) + " ::: 관심도 측정 실패 :(  \n" + str(ex) + "\n"
 
 	FILE.write(log_data)
 
 	FILE.close()
-    

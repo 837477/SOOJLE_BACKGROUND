@@ -47,15 +47,17 @@ def SJ_visitor_of_time():
 
 if __name__ == '__main__':
 	FILE = open('/home/iml/log/background.log', 'a')
+	#FILE = open('background.log', 'a')
 	
 	try:
-    	SJ_visitor_of_time()
-		log_data = datetime.now() + "매 시간 방문자 캐싱 성공 :)"
+		SJ_visitor_of_time()
+		log_data = str(datetime.now()) + " ::: 매 시간 방문자 캐싱 성공 :)  \n"
     
-	except:
-		log_data = datetime.now() + "매 시간 방문자 캐싱 실패 :("
+	except Exception as ex:
+		log_data = str(datetime.now()) + " ::: 매 시간 방문자 캐싱 실패 :(  \n" + str(ex) + "\n"
 
 	FILE.write(log_data)
 
 	FILE.close()
+
     

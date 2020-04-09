@@ -44,9 +44,11 @@ def SJ_day_analysis():
 	#오늘 좋아요된 게시글
 	today_analysis['today_fav'] = find_variable(db, 'today_fav')
 
-	today_year = datetime.today().year
-	today_month = datetime.today().month
-	today_day = datetime.today().day
+	today = datetime.now() - timedelta(days = 1)
+
+	today_year = today.year
+	today_month = today.month
+	today_day = today.day
 
 	#오늘 날짜 기입!
 	today_analysis['date'] = datetime(today_year, today_month, today_day)
@@ -124,13 +126,14 @@ def SJ_day_analysis():
 
 if __name__ == '__main__':
 	FILE = open('/home/iml/log/background.log', 'a')
+	#FILE = open('background.log', 'a')
 	
 	try:
-    	SJ_day_analysis()
-		log_data = datetime.now() + "하루 통계 캐싱 성공 :)"
+		SJ_day_analysis()
+		log_data = str(datetime.now()) + " ::: 하루 통계 캐싱 성공 :)  \n"
     
-	except:
-		log_data = datetime.now() + "하루 통계 캐싱 실패 :("
+	except Exception as ex:
+		log_data = str(datetime.now()) + " ::: 하루 통계 캐싱 실패 :(  \n" + str(ex) + "\n"
 
 	FILE.write(log_data)
 
