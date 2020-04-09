@@ -33,7 +33,7 @@ def SJ_visitor_of_time():
 	visitor_cnt = find_today_time_visitor(db, time)
 
 	hour_visitor_obj = {}
-	if datetime.now().hour == 0:
+	if time.hour == 0:
 		hour_visitor_obj['time'] = 24
 	else:	
 		hour_visitor_obj['time'] = time.hour

@@ -125,8 +125,8 @@ def SJ_day_analysis():
 	
 
 if __name__ == '__main__':
-	FILE = open('/home/iml/log/background.log', 'a')
-	#FILE = open('background.log', 'a')
+	#FILE = open('/home/iml/log/background.log', 'a')
+	FILE = open('background.log', 'a')
 	
 	try:
 		SJ_day_analysis()
