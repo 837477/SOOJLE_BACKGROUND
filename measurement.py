@@ -43,11 +43,17 @@ def SJ_interest_measurement_run():
 
 	ACTION_DAY_CHECK = get_default_day(SJ_USER_ACTION_DAY_CHECK)
 
+	CATEGORY_list = find_all_category_of_topic(db)
+	CATEGORY_list = list(CATEGORY_list)
+	CATEGORY = {}
+	#뉴스피드 관심도 태그 구하기에서 빠른 접근을 위해서 dict형식으로 변환
+	for cate in CATEGORY_list:
+		CATEGORY[cate['category_name']] = cate['tag']
+
 	for USER in USER_list:
 		#좋아요/조회수가 하나도 없는 회원은 측정 안함.
 		if (len(USER['fav_list']) == 0) and (len(USER['view_list']) == 0):
 			continue
-
 		
 		user_log_backup(db, USER)
 
@@ -105,13 +111,32 @@ def SJ_interest_measurement_run():
 		search_doc = search_list
 
 		#사용자가 접근한 뉴스피드 ################################
+		A_NUM = 0 #대학교
+		B_NUM = 0 #동아리&모임
+		C_NUM = 0 #공모전&행사
+		D_NUM = 0 #진로&구인
+		E_NUM = 0 #자유
+
 		if len(USER['newsfeed_list']) <= SJ_USER_LOG_LIMIT['newsfeed'] * SJ_USER_ACTION_NUM_CHECK_PERCENT:
 			for newsfeed in USER['newsfeed_list']:
-				newsfeed_tag += newsfeed['tag']
+				if newsfeed['newsfeed_name'] == '대학교': A_NUM += 1
+				elif newsfeed['newsfeed_name'] == '동아리&모임': B_NUM += 1
+				elif newsfeed['newsfeed_name'] == '공모전&행사': C_NUM += 1
+				elif newsfeed['newsfeed_name'] == '진로&구인': D_NUM += 1
+				else: E_NUM += 1
 		else:
 			for newsfeed in USER['newsfeed_list']:
 				if newsfeed['date'] < ACTION_DAY_CHECK: continue
+
+				if newsfeed['newsfeed_name'] == '대학교': A_NUM += 1
+				elif newsfeed['newsfeed_name'] == '동아리&모임': B_NUM += 1
+				elif newsfeed['newsfeed_name'] == '공모전&행사': C_NUM += 1
+				elif newsfeed['newsfeed_name'] == '진로&구인': D_NUM += 1
+				else: E_NUM += 1
+
 				newsfeed_tag += newsfeed['tag']
+		
+		newsfeed_tag += (CATEGORY['대학교'] * A_NUM) + (CATEGORY['동아리&모임'] * B_NUM) + (CATEGORY['공모전&행사'] * C_NUM) + (CATEGORY['진로&구인'] * D_NUM) + (CATEGORY['자유'] * E_NUM)
 
 		newsfeed_topic = LDA.get_topics(newsfeed_tag)
 
@@ -230,6 +255,8 @@ def user_log_backup(db, USER):
 
 
 if __name__ == '__main__':
+	SJ_interest_measurement_run()
+	'''
 	FILE = open('/home/iml/log/background.log', 'a')
 	#FILE = open('background.log', 'a')
 	
@@ -243,3 +270,4 @@ if __name__ == '__main__':
 	FILE.write(log_data)
 
 	FILE.close()
+	'''
