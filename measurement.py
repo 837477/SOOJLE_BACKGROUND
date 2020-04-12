@@ -136,7 +136,7 @@ def SJ_interest_measurement_run():
 
 				newsfeed_tag += newsfeed['tag']
 		
-		newsfeed_tag += (CATEGORY['대학교'] * A_NUM) + (CATEGORY['동아리&모임'] * B_NUM) + (CATEGORY['공모전&행사'] * C_NUM) + (CATEGORY['진로&구인'] * D_NUM) + (CATEGORY['자유'] * E_NUM)
+		newsfeed_tag += (CATEGORY['대학교'] * A_NUM) + (CATEGORY['동아리&모임'] * B_NUM) + (CATEGORY['공모전&행사'] * C_NUM) + (CATEGORY['진로&구인'] * D_NUM) + (CATEGORY['커뮤니티'] * E_NUM)
 
 		newsfeed_topic = LDA.get_topics(newsfeed_tag)
 

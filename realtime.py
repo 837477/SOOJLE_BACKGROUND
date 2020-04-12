@@ -82,8 +82,12 @@ def SJ_realtime_insert():
 
 	search_log_list = find_search_log(db)
 	search_log_list = list(search_log_list)
-
+	
 	real_time_keywords_temp = real_time_keywords(search_log_list)
+
+	#최근에 검색어가 0개 이면, 애초에 캐싱을 안하고 함수 종료.
+	if len(real_time_keywords_temp) == 0:
+		return False
 
 	#욕 필터링
 	realtime_result = []
