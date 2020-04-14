@@ -255,8 +255,6 @@ def user_log_backup(db, USER):
 
 
 if __name__ == '__main__':
-	SJ_interest_measurement_run()
-	'''
 	FILE = open('/home/iml/log/background.log', 'a')
 	#FILE = open('background.log', 'a')
 	
@@ -270,4 +268,3 @@ if __name__ == '__main__':
 	FILE.write(log_data)
 
 	FILE.close()
-	'''
